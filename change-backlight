@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+#####
+# script to change the backlight
+#works for intel drivers
+#usage:
+# $change-backlight [+,-][amount]
+#####
+
+
+
+curr=$(</sys/class/backlight/intel_backlight/brightness)
+arg="$1"
+
+to_write=$curr
+
+if [[ $arg == -* ]]; then
+	to_write=$((curr-${arg:1}))
+fi
+if [[ $arg == +* ]]; then
+	to_write=$((curr+${arg:1}))
+fi
+
+echo "$to_write" | sudo tee /sys/class/backlight/intel_backlight/brightness
