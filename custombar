@@ -1,0 +1,26 @@
+#A minimalist bar for lemonbar
+#To work add "custombar | lemonbar -p &" to your .xinitrc file
+
+#!/usr/bin/bash
+
+# Define the clock
+Clock() {
+        DATETIME=$(date "+%a %b %d, %T")
+
+        echo -n "$DATETIME"
+}
+
+#Define the battery
+Battery() {
+        BATPERC=$(acpi --battery | cut -d, -f2)
+        echo "$BATPERC"
+}
+
+
+# Print the clock and battery
+
+while true; do
+        echo "%{c}%{F#FFFF00}%{B#0000FF} $(Clock) %{F-}%{B-}%{r}$(Battery)"
+        sleep 1
+
+done
